@@ -1,3 +1,10 @@
+Created IdeaService which maps api call "ideas". The endpoint returns a list of entries.
+
+Modified IdeaListActivity to use data returned from endpoint instead of sample content.
+
+
+-------------------------------------------------------------------
+
 Customized the okhttp client being used by retrofit to enable using HttpLoggingInterceptor.
 
     Added dependency to use HttpLoggingInterceptor.
