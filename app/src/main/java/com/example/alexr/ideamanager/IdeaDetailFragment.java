@@ -11,9 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.alexr.ideamanager.helpers.SampleContent;
 import com.example.alexr.ideamanager.models.Idea;
+import com.example.alexr.ideamanager.services.IdeaService;
+import com.example.alexr.ideamanager.services.ServiceBuilder;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class IdeaDetailFragment extends Fragment {
 
@@ -48,16 +55,45 @@ public class IdeaDetailFragment extends Fragment {
             Activity activity = this.getActivity();
             final CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
 
-            mItem = SampleContent.getIdeaById(getArguments().getInt(ARG_ITEM_ID));
+            /** replace with data retrieved from remote using retrofit. */
+//            mItem = SampleContent.getIdeaById(getArguments().getInt(ARG_ITEM_ID));
+//
+//            ideaName.setText(mItem.getName());
+//            ideaDescription.setText(mItem.getDescription());
+//            ideaOwner.setText(mItem.getOwner());
+//            ideaStatus.setText(mItem.getStatus());
+//
+//            if (appBarLayout != null) {
+//                appBarLayout.setTitle(mItem.getName());
+//            }
 
-            ideaName.setText(mItem.getName());
-            ideaDescription.setText(mItem.getDescription());
-            ideaOwner.setText(mItem.getOwner());
-            ideaStatus.setText(mItem.getStatus());
+            // build a rest api service for Idea objects
+            IdeaService ideaService = ServiceBuilder.buildService(IdeaService.class);
 
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.getName());
-            }
+            // Generate a request which will return Idea objs from remote.
+            Call<Idea> request = ideaService.getIdea(getArguments().getInt(ARG_ITEM_ID));
+
+            // enqueue request so its executed.
+            // async update ui when request resolves (either successfully or unsuccessfully).
+            request.enqueue(new Callback<Idea>() {
+                @Override
+                public void onResponse(Call<Idea> call, Response<Idea> response) {
+                    mItem = response.body();
+
+                    ideaName.setText(mItem.getName());
+                    ideaDescription.setText(mItem.getDescription());
+                    ideaOwner.setText(mItem.getOwner());
+                    ideaStatus.setText(mItem.getStatus());
+
+                    if (appBarLayout != null) appBarLayout.setTitle(mItem.getName());
+                }
+
+                @Override
+                public void onFailure(Call<Idea> call, Throwable t) {
+                    Toast.makeText(context, "Failed to retrieve remote item", Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
 
         updateIdea.setOnClickListener(new View.OnClickListener() {

@@ -1,3 +1,9 @@
+Defined a path request to retrieve Idea objs from remote.
+
+Replaced sampleContent with retrofit call to remote.
+
+-------------------------------------------------------------------
+
 Created IdeaService which maps api call "ideas". The endpoint returns a list of entries.
 
 Modified IdeaListActivity to use data returned from endpoint instead of sample content.
