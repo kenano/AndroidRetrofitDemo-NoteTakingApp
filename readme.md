@@ -1,3 +1,7 @@
+Refactored code to pass a string into getIdeas which will filter Ideas on a query string parameter.
+    This modified getIdeas signature. 
+
+-------------------------------------------------------------------
 Defined a path request to retrieve Idea objs from remote.
 
 Replaced sampleContent with retrofit call to remote.
@@ -12,7 +16,6 @@ Modified IdeaListActivity to use data returned from endpoint instead of sample c
 -------------------------------------------------------------------
 
 Customized the okhttp client being used by retrofit to enable using HttpLoggingInterceptor.
-
     Added dependency to use HttpLoggingInterceptor.
 
 -------------------------------------------------------------------

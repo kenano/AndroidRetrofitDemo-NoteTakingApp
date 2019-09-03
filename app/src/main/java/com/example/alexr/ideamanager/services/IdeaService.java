@@ -7,11 +7,12 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface IdeaService {
 
     @GET("ideas")
-    Call<List<Idea>> getIdeas();
+    Call<List<Idea>> getIdeas(@Query("owner") String owner);
 
     // The curly braces denote where id numbers are passed in the url.
     @GET("ideas/{id}")

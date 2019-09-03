@@ -55,7 +55,13 @@ public class IdeaListActivity extends AppCompatActivity {
 //        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(SampleContent.IDEAS));
 
         IdeaService ideaService = ServiceBuilder.buildService(IdeaService.class);
-        Call<List<Idea>> ideasRequest = ideaService.getIdeas();
+
+        // comment out getIdeas which returned all Ideas. Instead filter ideas with a specific owner.
+//        Call<List<Idea>> ideasRequest = ideaService.getIdeas();
+        Call<List<Idea>> ideasRequest = ideaService.getIdeas("Jim");
+
+        // sending null or "" as query will return all ideas.
+//        Call<List<Idea>> ideasRequest = ideaService.getIdeas(null);
 
         ideasRequest.enqueue(new Callback<List<Idea>>() {
             @Override
