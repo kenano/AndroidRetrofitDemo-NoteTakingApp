@@ -1,3 +1,7 @@
+
+Creating a queryMap, a more complex query.
+
+-------------------------------------------------------------------
 Refactored code to pass a string into getIdeas which will filter Ideas on a query string parameter.
     This modified getIdeas signature. 
 

@@ -16,6 +16,7 @@ import com.example.alexr.ideamanager.models.Idea;
 import com.example.alexr.ideamanager.services.IdeaService;
 import com.example.alexr.ideamanager.services.ServiceBuilder;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -52,15 +53,27 @@ public class IdeaListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
+        // Display local sample content instead of retrieving it remotely.
 //        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(SampleContent.IDEAS));
 
+        // create an ideaService. This will create Idea models from remote using retrofit.
         IdeaService ideaService = ServiceBuilder.buildService(IdeaService.class);
 
-        // comment out getIdeas which returned all Ideas. Instead filter ideas with a specific owner.
-//        Call<List<Idea>> ideasRequest = ideaService.getIdeas();
-        Call<List<Idea>> ideasRequest = ideaService.getIdeas("Jim");
+        // There are many ways to query for models.
 
-        // sending null or "" as query will return all ideas.
+        // 1. get all of them. (no filtering)
+//        Call<List<Idea>> ideasRequest = ideaService.getIdeas();
+
+        // 2. Send a query to filter by.
+//        Call<List<Idea>> ideasRequest = ideaService.getIdeas("Jim");
+
+        // 3. Send a queryMap for more complex queries.
+        HashMap<String, String> filters = new HashMap<>();
+        filters.put("owner", "Jim");
+        filters.put("count", "1");
+        Call<List<Idea>> ideasRequest = ideaService.getIdeas(filters);
+
+        // 4. sending null or "" as query will return all ideas.
 //        Call<List<Idea>> ideasRequest = ideaService.getIdeas(null);
 
         ideasRequest.enqueue(new Callback<List<Idea>>() {
