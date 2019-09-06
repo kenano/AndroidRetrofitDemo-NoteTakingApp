@@ -1,4 +1,5 @@
-Demo project for Android + Retrofit
+Demo project for Android + Retrofit. Creates note taking app (Globomantics).
+From pluralsight vid "Getting started with retrofit"
 
 -------------------------------------------------------------------
 ##Dev log
