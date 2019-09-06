@@ -1,3 +1,7 @@
+Demo project for Android + Retrofit
+
+-------------------------------------------------------------------
+##Dev log
 
 Creating a queryMap, a more complex query.
 
